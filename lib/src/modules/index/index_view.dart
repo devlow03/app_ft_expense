@@ -56,6 +56,7 @@ class IndexPage extends StatelessWidget {
 
     return Obx(() {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         extendBody: true,
         backgroundColor: const Color(0xffC0DBEA),
         body: bottomNavigationBarItems[logic.tabIndex.value]['screen'],
@@ -70,7 +71,7 @@ class IndexPage extends StatelessWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
         bottomNavigationBar: BottomAppBar(
-          clipBehavior: Clip.antiAlias,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           shape:const CircularNotchedRectangle(),
           notchMargin: 10,
           color: Colors.transparent,

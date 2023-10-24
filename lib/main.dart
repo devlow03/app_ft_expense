@@ -4,12 +4,13 @@ import 'package:app_ft_expense/src/core/xcolor.dart';
 import 'package:app_ft_expense/src/modules/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 // SharedPreferences? pre;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DependencyInjections().dependencies();// fix lỗi dependency injection - SharedPreferences
-
+  await initializeDateFormatting('vi', null);
   runApp(const MyApp());
 }
 

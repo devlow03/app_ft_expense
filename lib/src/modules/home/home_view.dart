@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:app_ft_expense/src/core/xcolor.dart';
 import 'package:app_ft_expense/src/modules/home/add_balance/add_balance_view.dart';
+import 'package:app_ft_expense/src/modules/home/edit_balance/edit_balance_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logic = Get.put(HomeLogic());
-
     return Scaffold(
       // backgroundColor: Colors.grey.shade200,
       backgroundColor: Color(0xffF9F2EC),
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Color(0xffF9F2EC),
         centerTitle: true,
         title: Text(
-          DateFormat.yMMMMEEEEd().format(DateTime.now()),
+          DateFormat.yMMMMEEEEd('vi').format(DateTime.now()),
           style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500),
@@ -33,8 +33,8 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: CircleAvatar(
             radius: 5,
-            backgroundImage: AssetImage(
-              "assets/man.png"),
+            backgroundImage: NetworkImage(
+              "https://scontent.fvca1-2.fna.fbcdn.net/v/t39.30808-1/394551492_2629059584068245_4712940509042575839_n.jpg?stp=dst-jpg_p320x320&_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DwQVwaFPAGEAX8yseqm&_nc_ht=scontent.fvca1-2.fna&oh=00_AfD9TL7DuBLC-_Sxhp-TGlYhDSzMbWaMIh4uDZcKsPl1mA&oe=653D4291"),
 
           ),
         ),
@@ -61,13 +61,26 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: [
-                        const Text(
-                          "SỐ DƯ TÀI KHOẢN",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300,
-                              letterSpacing: 1),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "SỐ DƯ TÀI KHOẢN",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300,
+                                  letterSpacing: 1),
+                            ),
+                            IconButton(
+
+                                onPressed: (){
+                                  Get.dialog(EditBalancePage());
+                                },
+                                icon: Icon(Icons.edit_note,size: 30,)
+                            )
+                          ],
                         ),
                         const SizedBox(
                           height: 20,
@@ -223,25 +236,45 @@ class HomePage extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
+                              vertical: 5, horizontal: 10),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: const Text(
-                                  'Giao dịch gần đây',
-                                  style: TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold),
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 10),
+                                    child: const Text(
+                                      'Giao dịch gần đây',
+                                      style: TextStyle(
+                                          fontSize: 16, fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  TextButton(
+                                      onPressed: (){},
+                                      child: Text("Xem thêm>",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                      )
+                                  )
+                                ],
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
                               Visibility(
-                                replacement: Center(
-                                  child: CircularProgressIndicator(),
+                                visible: logic.getTransactionResponse.value?.data?.isNotEmpty==true,
+                                replacement: Visibility(
+                                  visible: (logic.getTransactionResponse.value?.data?.length??0)==0,
+                                  child: Center(
+                                    child: Text("Bạn chưa có giao dịch nào"),
+                                  ),
+                                  replacement: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
                                 ),
-                                visible: logic.getTransactionResponse.value!=null,
                                 child: ListView.separated(
                                   itemCount: (logic.getTransactionResponse.value?.data?.length??0)>5?5:(logic.getTransactionResponse.value?.data?.length??0),
                                   shrinkWrap: true,

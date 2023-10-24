@@ -12,6 +12,7 @@ import '../../core/config.dart';
 import '../repositories/get/get_balance_response.dart';
 import '../repositories/get/get_categories_response.dart';
 import '../repositories/get/get_sum_type_transaction_response.dart';
+import '../repositories/put/put_update_balance_body.dart';
 part 'service.g.dart';
 
 @RestApi(baseUrl: GlobalData.baseUrl)
@@ -46,6 +47,9 @@ abstract class Services {
 
   @GET("/api/v1/transaction/sum")
   Future<GetSumTypeTransactionResponse>getSumTypeTransactionResponse();
+
+  @PUT("/api/v1/balance")
+  Future putUpdateBalance({@Body() required PutUpdateBalanceBody body});
 
 
 

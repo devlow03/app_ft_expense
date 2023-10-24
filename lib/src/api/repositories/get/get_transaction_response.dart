@@ -16,7 +16,7 @@ class GetTransactionResponse {
         _data?.add(Data.fromJson(v));
       });
     }
-    _sum = json['sum'];
+    _sum = json['sum'].toString();
   }
   List<Data>? _data;
   String? _sum;

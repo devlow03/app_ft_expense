@@ -25,8 +25,8 @@ class Data {
       this.expense,});
 
   Data.fromJson(dynamic json) {
-    income = json['income'];
-    expense = json['expense'];
+    income = json['income'].toString();
+    expense = json['expense'].toString();
   }
   String? income;
   String? expense;

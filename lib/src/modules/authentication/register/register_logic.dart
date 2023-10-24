@@ -35,7 +35,12 @@ class RegisterLogic extends GetxController {
             userName: userNameControl.text,
             password: passControl.text,
           )
-      );
+      ).then((value)async{
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.clear();
+        await prefs.setString(GlobalData.token,"${value.accessToken}" );
+        print(">>>>>>>>>token: ${ await prefs.getString(GlobalData.token )}");
+      });
       Get.offAll(AddBalancePage());
     });
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_ft_expense/src/api/services/service.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
@@ -11,6 +13,7 @@ import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
 import '../core/config.dart';
+import '../modules/authentication/sign_in/sign_in_view.dart';
 
 class DependencyInjections implements GET.Bindings {
   @override
@@ -61,6 +64,13 @@ class DependencyInjections implements GET.Bindings {
         },
           onError: ( error, handler) {
             // Xử lý lỗi
+            if(error.response?.statusCode == HttpStatus.unauthorized){
+              GET.Get.offAll(const SignInPage());
+              handler.next(error);
+            }
+            else{
+              handler.next(error);
+            }
             handler.next(error);
           },
         onResponse: (response,handler)async{

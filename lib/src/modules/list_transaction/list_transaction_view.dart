@@ -114,10 +114,16 @@ class ListTransactionPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 15,),
                 Visibility(
-                  replacement: Center(
-                    child: CircularProgressIndicator(),
+                  replacement: Visibility(
+                    visible: logicHome.getTransactionResponse.value==null,
+                    child: Center(
+                      child: Text("Bạn chưa có giao dịch nào"),
+                    ),
+                    replacement: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
-                  visible: logicHome.getTransactionResponse.value!=null,
+                  visible: logicHome.getTransactionResponse.value?.data?.isNotEmpty==true,
                   child: ListView.separated(
                     itemCount: (logicHome.getTransactionResponse.value?.data?.length??0),
                     shrinkWrap: true,
