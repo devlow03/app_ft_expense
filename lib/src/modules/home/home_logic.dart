@@ -1,3 +1,4 @@
+import 'package:app_ft_expense/src/api/repositories/get/get_transaction_query.dart';
 import 'package:app_ft_expense/src/api/services/service.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +15,10 @@ class HomeLogic extends GetxController {
   Rxn<String> balance = Rxn();
   Rxn<String>income = Rxn();
   Rxn<String>expense = Rxn();
+  DateTime now = DateTime.now();
+
+  // Định dạng ngày theo kiểu "d/m/y"
+  Rxn<String>date = Rxn();
 
   Rxn<GetSumTypeTransactionResponse>getSumTypeTransactionResponse = Rxn();
   @override
@@ -21,6 +26,7 @@ class HomeLogic extends GetxController {
     // TODO: implement onReady
     super.onReady();
     await getBalance();
+    date.value = DateFormat('d/M/y').format(now);
     await getSumTypeTransaction();
     await getTransaction();
 
@@ -33,7 +39,11 @@ class HomeLogic extends GetxController {
   }
 
   Future<GetTransactionResponse?>getTransaction()async{
-    getTransactionResponse.value = await services.getTransaction();
+    getTransactionResponse.value = await services.getTransaction(
+      query:GetTransactionQuery(
+        date: date.value
+      )
+    );
     return getTransactionResponse.value;
   }
 

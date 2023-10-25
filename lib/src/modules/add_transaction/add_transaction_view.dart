@@ -1,3 +1,4 @@
+import 'package:app_ft_expense/src/core/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -19,14 +20,7 @@ class AddTransactionPage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.grey.shade100,
-        leading: InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            )),
+        automaticallyImplyLeading: false,
         title: const Text(
           "Thêm mới",
           style: TextStyle(color: Colors.black, letterSpacing: 1),
@@ -83,10 +77,11 @@ class AddTransactionPage extends StatelessWidget {
                                     topRight: Radius.circular(30)),
                                 color: Colors.transparent),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Obx(() {
                                   return DropdownButtonFormField<String>(
-
                                     // dropdownColor: Colors.white,
                                     // focusColor: Colors.grey.shade100,
                                     decoration: InputDecoration(
@@ -117,8 +112,20 @@ class AddTransactionPage extends StatelessWidget {
                                     items: logic.getCategoryResponse.value?.data
                                         ?.map((value) {
                                       return DropdownMenuItem(
-                                        child: Text("${value.categoryName}"),
+                                        alignment: Alignment.center,
                                         value: value.id.toString(),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Image.network(
+                                              "${GlobalData.baseUrl}/${value.thumnailUrl}",
+                                              width: MediaQuery.of(context).size.width*.1,
+                                            ),
+                                        const SizedBox(width: 15,),
+                                        Text("${value.categoryName}"),
+
+                                          ],
+                                        ),
                                       );
                                     }).toList(),
 

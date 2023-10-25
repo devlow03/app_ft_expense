@@ -1,3 +1,4 @@
+import 'package:app_ft_expense/src/api/repositories/get/get_transaction_query.dart';
 import 'package:app_ft_expense/src/api/repositories/get/get_transaction_response.dart';
 import 'package:app_ft_expense/src/api/repositories/post/post_add_balance_body.dart';
 import 'package:app_ft_expense/src/api/repositories/post/post_create_transaction_body.dart';
@@ -25,7 +26,7 @@ abstract class Services {
   Future<PostSigninResponse> postSignIn({@Body() required PostSigninBody body});
 
   @GET("/api/v1/transaction")
-  Future<GetTransactionResponse> getTransaction();
+  Future<GetTransactionResponse> getTransaction({@Queries() required GetTransactionQuery query });
 
   @POST("/api/v1/transaction")
   Future postCreateTransaction({@Body() required PostCreateTransactionBody body});

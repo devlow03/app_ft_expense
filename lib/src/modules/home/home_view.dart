@@ -1,8 +1,10 @@
 import 'dart:ffi';
 
+import 'package:app_ft_expense/src/core/config.dart';
 import 'package:app_ft_expense/src/core/xcolor.dart';
 import 'package:app_ft_expense/src/modules/home/add_balance/add_balance_view.dart';
 import 'package:app_ft_expense/src/modules/home/edit_balance/edit_balance_view.dart';
+import 'package:app_ft_expense/src/widget/global_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -293,14 +295,17 @@ class HomePage extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius:
-                                            BorderRadius.circular(30)),
+                                            BorderRadius.circular(20)),
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 30, horizontal: 15),
                                         child: ListTile(
                                           contentPadding: EdgeInsets.symmetric(horizontal: 2),
-                                          leading: Image.asset("${data?.type == "1" ? "assets/wallet1.png":"assets/wallet2.png"}",
-                                          width: MediaQuery.of(context).size.width*.1,
+                                          leading: Image.network(
+                                            "${GlobalData.baseUrl}/${data?.thumnailUrl}",
+                                            width: MediaQuery.of(context).size.width*.15,
+                                            // fit: BoxFit.cover,
                                           ),
+
                                           title: Text(data?.categoryName??"",
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -324,7 +329,7 @@ class HomePage extends StatelessWidget {
                                                     ),
                                                 ),
                                                 const SizedBox(height: 10,),
-                                                Text(data?.createdAt??"")
+                                                Text(data?.createdAtTime??"")
                                               ],
                                             ),
                                           ),

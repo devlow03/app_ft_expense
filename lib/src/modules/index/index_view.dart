@@ -31,9 +31,28 @@ class IndexPage extends StatelessWidget {
         'screen': ListTransactionPage(),
       },
       {
-        'icon':const SizedBox.shrink(),
-        'active': const SizedBox.shrink(),
+        'icon':Container(
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+            color: XColor.primary
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(Icons.add,color: Colors.white,),
+          ),
+        ),
+        'active': Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+              color: XColor.primary
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(Icons.add,color: Colors.white,),
+          ),
+        ),
         'label': '',
+        'screen':const AddTransactionPage()
       },
       {
         'icon':SvgPicture.asset("assets/budget2.svg"),
@@ -60,45 +79,37 @@ class IndexPage extends StatelessWidget {
         extendBody: true,
         backgroundColor: const Color(0xffC0DBEA),
         body: bottomNavigationBarItems[logic.tabIndex.value]['screen'],
-        floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Get.to(const AddTransactionPage());
-            },
-            backgroundColor: XColor.primary,
-            child: const Icon(Icons.add)
+        // floatingActionButton: FloatingActionButton(
+        //     onPressed: () {
+        //       Get.to(const AddTransactionPage());
+        //     },
+        //     backgroundColor: XColor.primary,
+        //     child: const Icon(Icons.add)
+        //
+        // ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-        bottomNavigationBar: BottomAppBar(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          shape:const CircularNotchedRectangle(),
-          notchMargin: 10,
-          color: Colors.transparent,
-          // ↑ use .withAlpha(0) to debug/peek underneath ↑ BottomAppBar
-          elevation: 0,
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            iconSize: 30,
-            selectedLabelStyle: TextStyle(
-                color: XColor.primary
-            ),
-
-            elevation: 0,
-            showSelectedLabels: true,
-            onTap: logic.tabSelect,
-            currentIndex: logic.tabIndex.value,
-
-            // showSelectedLabels: true,
-            items: bottomNavigationBarItems.map((e) {
-              return BottomNavigationBarItem(
-                icon: e['icon'],
-                activeIcon: e['active'],
-                label: e['label'],
-
-              );
-            }).toList(),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          iconSize: 30,
+          selectedLabelStyle: TextStyle(
+              color: XColor.primary
           ),
+
+          elevation: 0,
+          showSelectedLabels: true,
+          onTap: logic.tabSelect,
+          currentIndex: logic.tabIndex.value,
+
+          // showSelectedLabels: true,
+          items: bottomNavigationBarItems.map((e) {
+            return BottomNavigationBarItem(
+              icon: e['icon'],
+              activeIcon: e['active'],
+              label: e['label'],
+
+            );
+          }).toList(),
         ),
 
 

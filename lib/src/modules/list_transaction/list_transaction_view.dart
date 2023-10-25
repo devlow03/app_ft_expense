@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../core/config.dart';
+import '../../widget/global_image.dart';
 import '../home/home_logic.dart';
 import 'list_transaction_logic.dart';
 
@@ -142,13 +144,15 @@ class ListTransactionPage extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius:
-                              BorderRadius.circular(30)),
+                              BorderRadius.circular(20)),
                           padding: const EdgeInsets.symmetric(
                               vertical: 30, horizontal: 15),
                           child: ListTile(
                             contentPadding: EdgeInsets.symmetric(horizontal: 2),
-                            leading: Image.asset("${data?.type == "1" ? "assets/wallet1.png":"assets/wallet2.png"}",
-                              width: MediaQuery.of(context).size.width*.1,
+                            leading:Image.network(
+                              "${GlobalData.baseUrl}/${data?.thumnailUrl}",
+                              width: MediaQuery.of(context).size.width*.15,
+                              // fit: BoxFit.cover,
                             ),
                             title: Text(data?.categoryName??"",
                               style: TextStyle(
@@ -173,7 +177,7 @@ class ListTransactionPage extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 10,),
-                                  Text(data?.createdAt??"")
+                                  Text(data?.createdAtTime??"")
                                 ],
                               ),
                             ),

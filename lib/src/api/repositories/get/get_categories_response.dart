@@ -1,65 +1,55 @@
-/// data : [{"id":1,"categoryName":"Mua sắm thực phẩm"},{"id":2,"categoryName":"Ăn ngoài"},{"id":3,"categoryName":"Đồ uống"},{"id":4,"categoryName":"Nhiên liệu"},{"id":5,"categoryName":"Gửi xe"},{"id":6,"categoryName":"Tiền vé"},{"id":7,"categoryName":"Xem phim"},{"id":8,"categoryName":"Thể thao"},{"id":9,"categoryName":"Du lịch"},{"id":10,"categoryName":"Mua thuốc"},{"id":11,"categoryName":"Phí thăm khám bác sĩ"},{"id":12,"categoryName":"Mua sắm quần, áo"},{"id":13,"categoryName":"Mua sắm giày dép"},{"id":14,"categoryName":"Mua sắm đồ gia dụng"},{"id":15,"categoryName":"Trả nợ"},{"id":16,"categoryName":"Tiết kiệm"},{"id":17,"categoryName":"Tiền lương"},{"id":18,"categoryName":"Tiền lương thêm giờ"},{"id":19,"categoryName":"Thu nhập từ kinh doanh"},{"id":20,"categoryName":"Hỗ trợ gia đình"}]
-
 class GetCategoriesResponse {
   GetCategoriesResponse({
-      List<Data>? data,}){
-    _data = data;
-}
+      this.data,});
 
   GetCategoriesResponse.fromJson(dynamic json) {
     if (json['data'] != null) {
-      _data = [];
+      data = [];
       json['data'].forEach((v) {
-        _data?.add(Data.fromJson(v));
+        data?.add(Data.fromJson(v));
       });
     }
   }
-  List<Data>? _data;
+  List<Data>? data;
 GetCategoriesResponse copyWith({  List<Data>? data,
-}) => GetCategoriesResponse(  data: data ?? _data,
+}) => GetCategoriesResponse(  data: data ?? this.data,
 );
-  List<Data>? get data => _data;
-
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    if (_data != null) {
-      map['data'] = _data?.map((v) => v.toJson()).toList();
+    if (data != null) {
+      map['data'] = data?.map((v) => v.toJson()).toList();
     }
     return map;
   }
 
 }
 
-/// id : 1
-/// categoryName : "Mua sắm thực phẩm"
-
 class Data {
   Data({
-      num? id, 
-      String? categoryName,}){
-    _id = id;
-    _categoryName = categoryName;
-}
+      this.id, 
+      this.categoryName, 
+      this.thumnailUrl,});
 
   Data.fromJson(dynamic json) {
-    _id = json['id'] is int ? json['id'] : int.parse(json['id'].toString());
-    _categoryName = json['categoryName'];
+    id = json['id'];
+    categoryName = json['categoryName'];
+    thumnailUrl = json['thumnailUrl'];
   }
-
-  num? _id;
-  String? _categoryName;
-Data copyWith({  num? id,
+  String? id;
+  String? categoryName;
+  String? thumnailUrl;
+Data copyWith({  String? id,
   String? categoryName,
-}) => Data(  id: id ?? _id,
-  categoryName: categoryName ?? _categoryName,
+  String? thumnailUrl,
+}) => Data(  id: id ?? this.id,
+  categoryName: categoryName ?? this.categoryName,
+  thumnailUrl: thumnailUrl ?? this.thumnailUrl,
 );
-  num? get id => _id;
-  String? get categoryName => _categoryName;
-
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['categoryName'] = _categoryName;
+    map['id'] = id;
+    map['categoryName'] = categoryName;
+    map['thumnailUrl'] = thumnailUrl;
     return map;
   }
 
