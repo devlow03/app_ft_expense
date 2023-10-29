@@ -64,13 +64,13 @@ class DependencyInjections implements GET.Bindings {
         },
           onError: ( error, handler) {
             // Xử lý lỗi
-            if(error.response?.statusCode == HttpStatus.unauthorized){
-              GET.Get.offAll(const SignInPage());
-              handler.next(error);
-            }
-            else{
-              handler.next(error);
-            }
+            // if(error.response?.statusCode == HttpStatus.unauthorized){
+            //   GET.Get.offAll(const SignInPage());
+            //   handler.next(error);
+            // }
+            // else{
+            //   handler.next(error);
+            // }
             handler.next(error);
           },
         onResponse: (response,handler)async{

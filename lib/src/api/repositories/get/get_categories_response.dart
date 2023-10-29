@@ -26,28 +26,28 @@ GetCategoriesResponse copyWith({  List<Data>? data,
 
 class Data {
   Data({
-      this.id, 
+      this.categoryId, 
       this.categoryName, 
       this.thumnailUrl,});
 
   Data.fromJson(dynamic json) {
-    id = json['id'];
+    categoryId = json['categoryId'];
     categoryName = json['categoryName'];
     thumnailUrl = json['thumnailUrl'];
   }
-  String? id;
+  String? categoryId;
   String? categoryName;
   String? thumnailUrl;
-Data copyWith({  String? id,
+Data copyWith({  String? categoryId,
   String? categoryName,
   String? thumnailUrl,
-}) => Data(  id: id ?? this.id,
+}) => Data(  categoryId: categoryId ?? this.categoryId,
   categoryName: categoryName ?? this.categoryName,
   thumnailUrl: thumnailUrl ?? this.thumnailUrl,
 );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = id;
+    map['categoryId'] = categoryId;
     map['categoryName'] = categoryName;
     map['thumnailUrl'] = thumnailUrl;
     return map;

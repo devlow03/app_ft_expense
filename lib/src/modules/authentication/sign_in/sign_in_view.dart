@@ -53,9 +53,20 @@ class SignInPage extends StatelessWidget {
                         .size
                         .width * .9,
                     child: Form(
+                      key: logic.formKey,
                       child: Column(
                         children: [
                           TextFormField(
+                            validator: (value){
+                              if(value?.isEmpty==true){
+                                return "Vui lòng nhập tài khoản";
+                              }
+                              else if((value?.length??0)<5){
+                                return "Tài khoản phải từ 5 kí tự trở lên";
+                              }
+                              return null;
+
+                            },
                             controller: logicRegister.userNameControl,
                             onSaved: (value) {},
                             decoration: InputDecoration(
@@ -80,8 +91,21 @@ class SignInPage extends StatelessWidget {
                             height: 20,
                           ),
                           TextFormField(
+
+                            validator: (value){
+                              if(value?.isEmpty==true){
+                                return "Vui lòng nhập mật khẩu";
+                              }
+                              if((value?.length??0)<6){
+                                return "Mật khẩu phải từ 6 kí tự trở lên";
+                              }
+                              return null;
+
+
+                            },
                             controller: logicRegister.passControl,
                             keyboardType: TextInputType.number,
+                            obscureText: true,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.lock,color: XColor.primary,),
                               filled: true,
@@ -108,7 +132,12 @@ class SignInPage extends StatelessWidget {
                             height:50,
                             child: ElevatedButton(
                               onPressed: () async {
-                                await logicRegister.signIn();
+                                if(logic.formKey.currentState?.validate() == true){
+                                  await logicRegister.signIn();
+
+                                }
+
+
 
                               },
                               style: ElevatedButton.styleFrom(
@@ -123,7 +152,7 @@ class SignInPage extends StatelessWidget {
                                 child: Text(
                                   'Đăng nhập',
                                   style:
-                                  TextStyle(fontSize: 16, letterSpacing: 1),
+                                  TextStyle(fontSize: 16, letterSpacing: 1,color: Colors.white),
                                 ),
                               ),
                             ),

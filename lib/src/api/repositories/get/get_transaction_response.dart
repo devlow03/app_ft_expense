@@ -34,7 +34,9 @@ class Data {
       this.description, 
       this.createdAtDate, 
       this.createdAtTime, 
+      this.typeId, 
       this.nameType, 
+      this.categoryId, 
       this.categoryName, 
       this.thumnailUrl,});
 
@@ -47,7 +49,9 @@ class Data {
     description = json['description'];
     createdAtDate = json['createdAtDate'];
     createdAtTime = json['createdAtTime'];
+    typeId = json['typeId'];
     nameType = json['nameType'];
+    categoryId = json['categoryId'];
     categoryName = json['categoryName'];
     thumnailUrl = json['thumnailUrl'];
   }
@@ -59,7 +63,9 @@ class Data {
   String? description;
   String? createdAtDate;
   String? createdAtTime;
+  String? typeId;
   String? nameType;
+  String? categoryId;
   String? categoryName;
   String? thumnailUrl;
 Data copyWith({  String? id,
@@ -70,7 +76,9 @@ Data copyWith({  String? id,
   String? description,
   String? createdAtDate,
   String? createdAtTime,
+  String? typeId,
   String? nameType,
+  String? categoryId,
   String? categoryName,
   String? thumnailUrl,
 }) => Data(  id: id ?? this.id,
@@ -81,7 +89,9 @@ Data copyWith({  String? id,
   description: description ?? this.description,
   createdAtDate: createdAtDate ?? this.createdAtDate,
   createdAtTime: createdAtTime ?? this.createdAtTime,
+  typeId: typeId ?? this.typeId,
   nameType: nameType ?? this.nameType,
+  categoryId: categoryId ?? this.categoryId,
   categoryName: categoryName ?? this.categoryName,
   thumnailUrl: thumnailUrl ?? this.thumnailUrl,
 );
@@ -95,7 +105,9 @@ Data copyWith({  String? id,
     map['description'] = description;
     map['createdAtDate'] = createdAtDate;
     map['createdAtTime'] = createdAtTime;
+    map['typeId'] = typeId;
     map['nameType'] = nameType;
+    map['categoryId'] = categoryId;
     map['categoryName'] = categoryName;
     map['thumnailUrl'] = thumnailUrl;
     return map;

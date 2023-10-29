@@ -1,4 +1,3 @@
-import 'package:app_ft_expense/src/modules/add_transaction/add_transaction_view.dart';
 import 'package:app_ft_expense/src/modules/home/home_view.dart';
 import 'package:app_ft_expense/src/modules/list_transaction/list_transaction_view.dart';
 import 'package:app_ft_expense/src/modules/profile/profile_view.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../core/xcolor.dart';
+import '../add/add_view.dart';
 import '../chart/chart_view.dart';
 import 'index_logic.dart';
 
@@ -19,13 +19,13 @@ class IndexPage extends StatelessWidget {
 
     List<Map<String, dynamic>> bottomNavigationBarItems = [
       {
-        'icon': SvgPicture.asset("assets/home2.svg"),
+        'icon': const Icon(Icons.home),
         'active': SvgPicture.asset("assets/home.svg"),
         'label': 'Trang chủ',
         'screen': HomePage(),
       },
       {
-        'icon':  SvgPicture.asset("assets/transaction2.svg"),
+        'icon':  Icon(Icons.receipt_long),
         'active': SvgPicture.asset("assets/transaction.svg"),
         'label': 'Giao dịch',
         'screen': ListTransactionPage(),
@@ -52,16 +52,17 @@ class IndexPage extends StatelessWidget {
           ),
         ),
         'label': '',
-        'screen':const AddTransactionPage()
+        // 'screen':const AddTransactionPage()
+        'screen':const AddPage()
       },
       {
-        'icon':SvgPicture.asset("assets/budget2.svg"),
+        'icon':Icon(Icons.bar_chart),
         'active': SvgPicture.asset("assets/budget.svg"),
         'label': 'Biểu đồ',
         'screen': ChartPage(),
       },
       {
-        'icon':SvgPicture.asset("assets/user2.svg"),
+        'icon':Icon(Icons.person),
         'active': SvgPicture.asset("assets/user.svg"),
         'label': 'Cá nhân',
         'screen': ProfilePage(),
@@ -95,7 +96,7 @@ class IndexPage extends StatelessWidget {
           selectedLabelStyle: TextStyle(
               color: XColor.primary
           ),
-
+          selectedItemColor: XColor.primary,
           elevation: 0,
           showSelectedLabels: true,
           onTap: logic.tabSelect,
@@ -105,7 +106,7 @@ class IndexPage extends StatelessWidget {
           items: bottomNavigationBarItems.map((e) {
             return BottomNavigationBarItem(
               icon: e['icon'],
-              activeIcon: e['active'],
+              // activeIcon: e['active'],
               label: e['label'],
 
             );

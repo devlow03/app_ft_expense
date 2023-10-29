@@ -20,6 +20,7 @@ class RegisterLogic extends GetxController {
   TextEditingController userNameControl = TextEditingController();
   Rxn<String>price = Rxn();
   Rxn<PostSigninResponse>postSignInResponse = Rxn();
+  final GlobalKey<FormState> formKeyRegister = GlobalKey<FormState>();
 
   Future<void>register()async{
     Utils.loading(()async{
@@ -36,12 +37,11 @@ class RegisterLogic extends GetxController {
             password: passControl.text,
           )
       ).then((value)async{
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.clear();
-        await prefs.setString(GlobalData.token,"${value.accessToken}" );
-        print(">>>>>>>>>token: ${ await prefs.getString(GlobalData.token )}");
+
+
+        Get.offAll(AddBalancePage(accessToken: value.accessToken??"",));
       });
-      Get.offAll(AddBalancePage());
+
     });
 
 

@@ -27,8 +27,9 @@ class MyApp extends StatelessWidget {
       // locale: DevicePreview.locale(context),
       // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
-      title: 'TMart',
+      title: 'Chi tiêu thông minh',
       theme: ThemeData(
+
           fontFamily: 'Helvetica',
         primarySwatch: XColor.primary,
         appBarTheme: AppBarTheme(

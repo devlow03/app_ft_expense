@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../core/xcolor.dart';
 
 class Utils{
@@ -9,24 +9,11 @@ class Utils{
 
    static Future<void> loading(Function onLoading) async {
      Get.dialog(
-       AlertDialog(
-         contentPadding: EdgeInsets.zero,
-         // Loại bỏ khoảng trắng xung quanh nội dung
-         icon: Center(
-           child: CircularProgressIndicator(
-             color: XColor.primary,
-             strokeWidth: 2,
-           ),
-         ),
-         title: Text(
-           "Đang tải",
-           style: TextStyle(),
-           textAlign: TextAlign.center,
-         ),
-       ),
+         SpinKitThreeBounce(
+           size: 30,
+           color: Colors.white,
+         )
      );
-
-
      try {
        await onLoading();
        Get.back();

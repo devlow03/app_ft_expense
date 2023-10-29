@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/xcolor.dart';
+import '../index/index_view.dart';
 import 'add_balance_logic.dart';
 
 class AddBalancePage extends StatelessWidget {
-  const AddBalancePage({Key? key}) : super(key: key);
+  final String accessToken;
+  const AddBalancePage({Key? key, required this.accessToken}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,65 +29,103 @@ class AddBalancePage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 50,),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: TextFormField(
-                controller: logic.balanceControl,
-                onSaved: (value) {},
-                decoration: InputDecoration(
-                  prefixIcon:  Icon(Icons.account_balance,color: XColor.primary,),
-                  filled: true,
-                  fillColor: Colors.grey.shade100,
-                  labelText: 'Số dư tài khoản',
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                    const BorderSide(color: Colors.transparent),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                    const BorderSide(color: Colors.transparent),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
+      body: Obx(() {
+        return Center(
+          child: Form(
+            key: logic.formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 50,),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: TextFormField(
+                    validator: (value){
+                      if(value?.isEmpty==true){
+                        return "Vui lòng nhập số dư tài khoản";
+                      }
+                      return null;
 
-            Container(
-              width: MediaQuery.of(context).size.width*.9,
-              height:50,
-              child: ElevatedButton(
-                onPressed: () async {
-                  await logic.addBalance();
-                },
-                style: ElevatedButton.styleFrom(
-
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)
-                    )
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: 12, horizontal: 20),
-                  child: Text(
-                    'Thêm số dư',
-                    style:
-                    TextStyle(fontSize: 16, letterSpacing: 1),
+                    },
+                    controller: logic.balanceControl,
+                    onSaved: (value) {},
+                    onChanged: (value) {
+                      logic.balanceFormatted.value = value;
+                    },
+                    decoration: InputDecoration(
+                      suffix: Container(
+                        color: Colors.white,
+                        width: MediaQuery.of(context).size.width*.4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              logic.balanceFormatted.value?.isNotEmpty == true
+                                  ? NumberFormat.currency(locale: 'vi').format(double
+                                  .parse(logic.balanceFormatted.value ?? ""))
+                                  : '0 VND',
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.account_balance, color: XColor.primary,),
+                      filled: true,
+                      fillColor: Colors.grey.shade100,
+                      labelText: 'Số dư tài khoản',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                        const BorderSide(color: Colors.transparent),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                        const BorderSide(color: Colors.transparent),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                const SizedBox(
+                  height: 40,
+                ),
+
+                Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * .9,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if(logic.formKey.currentState?.validate()==true){
+                        await logic.addBalance();
+                        await logic.saveToken(token: accessToken);
+                        Get.offAll(IndexPage());
+                      }
+
+                    },
+                    style: ElevatedButton.styleFrom(
+
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)
+                        )
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 20),
+                      child: Text(
+                        'Thêm số dư',
+                        style:
+                        TextStyle(fontSize: 16, letterSpacing: 1,color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }),
     );
   }
 }

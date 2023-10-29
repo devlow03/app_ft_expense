@@ -5,6 +5,7 @@ import 'package:app_ft_expense/src/api/repositories/post/post_create_transaction
 import 'package:app_ft_expense/src/api/repositories/post/post_register_body.dart';
 import 'package:app_ft_expense/src/api/repositories/post/post_signin_body.dart';
 import 'package:app_ft_expense/src/api/repositories/post/post_signin_response.dart';
+import 'package:app_ft_expense/src/api/repositories/put/put_update_avatar_body.dart';
 import 'package:app_ft_expense/src/api/repositories/put/put_update_transaction_body.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
@@ -13,6 +14,7 @@ import '../../core/config.dart';
 import '../repositories/get/get_balance_response.dart';
 import '../repositories/get/get_categories_response.dart';
 import '../repositories/get/get_sum_type_transaction_response.dart';
+import '../repositories/get/get_user_response.dart';
 import '../repositories/put/put_update_balance_body.dart';
 part 'service.g.dart';
 
@@ -51,6 +53,12 @@ abstract class Services {
 
   @PUT("/api/v1/balance")
   Future putUpdateBalance({@Body() required PutUpdateBalanceBody body});
+
+  @GET("/api/auth/users")
+  Future<GetUserResponse>getUserResponse();
+
+  @PUT("/api/auth/users/avatar")
+  Future putUpdateAvatar({@Body() required PutUpdateAvatarBody body});
 
 
 

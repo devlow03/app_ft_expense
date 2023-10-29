@@ -52,9 +52,17 @@ class RegisterPage extends StatelessWidget {
                         .size
                         .width * .9,
                     child: Form(
+                      key: logic.formKeyRegister,
                       child: Column(
                         children: [
                           TextFormField(
+                            validator: (value){
+                              if(value?.isEmpty==true){
+                                return "Vui lòng nhập họ tên";
+                              }
+                              return null;
+
+                            },
                             controller: logic.fullNameControl,
                             onSaved: (value) {},
                             decoration: InputDecoration(
@@ -79,6 +87,16 @@ class RegisterPage extends StatelessWidget {
                             height: 20,
                           ),
                           TextFormField(
+                            validator: (value){
+                              if(value?.isEmpty==true){
+                                return "Vui lòng nhập tài khoản";
+                              }
+                              else if((value?.length??0)<5){
+                                return "Tài khoản phải từ 5 kí tự trở lên";
+                              }
+                              return null;
+
+                            },
                             controller: logic.userNameControl,
                             onSaved: (value) {},
                             decoration: InputDecoration(
@@ -103,7 +121,19 @@ class RegisterPage extends StatelessWidget {
                             height: 20,
                           ),
                           TextFormField(
+                            validator: (value){
+                              if(value?.isEmpty==true){
+                                return "Vui lòng nhập mật khẩu";
+                              }
+                              if((value?.length??0)<6){
+                                return "Mật khẩu phải từ 6 kí tự trở lên";
+                              }
+                              return null;
+
+
+                            },
                             controller: logic.passControl,
+                            obscureText: true,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               prefixIcon:  Icon(Icons.lock, color: XColor.primary,),
@@ -131,7 +161,10 @@ class RegisterPage extends StatelessWidget {
                             height:50,
                             child: ElevatedButton(
                               onPressed: () async {
-                                await logic.register();
+                                if(logic.formKeyRegister.currentState?.validate() == true){
+                                  await logic.register();
+
+                                }
 
                               },
                               style: ElevatedButton.styleFrom(
@@ -146,7 +179,7 @@ class RegisterPage extends StatelessWidget {
                                 child: Text(
                                   'Đăng ký',
                                   style:
-                                  TextStyle(fontSize: 16, letterSpacing: 1),
+                                  TextStyle(fontSize: 16, letterSpacing: 1,color: Colors.white),
                                 ),
                               ),
                             ),
