@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
-
 import '../../core/xcolor.dart';
+import '../../widget/pick_image/pick_image_logic.dart';
+import '../../widget/pick_image/pick_image_view.dart';
 import 'profile_logic.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logic = Get.put(ProfileLogic());
-
+    final logicPickImage = Get.put(PickImageLogic());
 
     return Scaffold(
         backgroundColor: Colors.grey.shade100,
@@ -66,13 +66,11 @@ class ProfilePage extends StatelessWidget {
                                     child: CircleAvatar(
                                       radius: 40,
                                       backgroundImage:
-                                      logic.base64Image.value?.isNotEmpty ==
-                                          true
-                                          ? MemoryImage(
-                                          logic.imageDecode.value!) as ImageProvider
+                                      logicPickImage.image.value != null
+                                          ? FileImage(logicPickImage.image.value!) as ImageProvider
                                           :
                                       NetworkImage(
-                                          "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png"
+                                          logic.getUserResponse.value?.data?.avatar!=null ?logic.getUserResponse.value?.data?.avatar:logic.networkImage.value
                                       ),
                                     )
                                 ),
@@ -81,7 +79,7 @@ class ProfilePage extends StatelessWidget {
                                   right: 15,
                                   child: GestureDetector(
                                     onTap: () async {
-                                      await logic.pickImage(context);
+                                      Get.dialog(const PickImagePage());
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

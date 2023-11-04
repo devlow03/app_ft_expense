@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../api/services/service.dart';
 import '../../../core/config.dart';
+import '../../profile/profile_logic.dart';
 
 class RegisterLogic extends GetxController {
   final Services services = Get.find();
@@ -21,6 +22,7 @@ class RegisterLogic extends GetxController {
   Rxn<String>price = Rxn();
   Rxn<PostSigninResponse>postSignInResponse = Rxn();
   final GlobalKey<FormState> formKeyRegister = GlobalKey<FormState>();
+  final logicProfile = Get.put(ProfileLogic());
 
   Future<void>register()async{
     Utils.loading(()async{
@@ -58,6 +60,7 @@ class RegisterLogic extends GetxController {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(GlobalData.token,"${postSignInResponse.value?.accessToken}" );
       print(">>>>>>>>>token: ${ await prefs.getString(GlobalData.token )}");
+      await logicProfile.getUser();
       Fluttertoast.showToast(
           msg: "Đăng nhập thành công", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, textColor: Colors.white, fontSize: 16.0);
       Get.offAll(IndexPage());

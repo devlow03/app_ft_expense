@@ -25,34 +25,36 @@ class TabTransactionPage extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border(
                       bottom: BorderSide(color: Colors.grey.shade300)
                   )
               ),
-              child: TabBar(
-                  indicatorWeight: 5,
-                  isScrollable: true,
-                  indicatorColor: XColor.primary,
-                  unselectedLabelColor: Colors.black,
-                  unselectedLabelStyle: const TextStyle(
-                      fontWeight: FontWeight.w700),
-                  labelColor: XColor.primary,
-                  onTap: (index) async {
-                    logic.date.value = logic.tabTransaction[index]["value"];
-                    await logic.getTransaction();
-                  },
-                  labelStyle: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                  ),
-                  tabs: logic.tabTransaction.map((e) {
-                    return Tab(
-                      text: e['text'],
+              child: Center(
+                child: TabBar(
 
-                    );
-                  }).toList()
+                    indicatorWeight: 5,
+                    isScrollable: true,
+                    indicatorColor: XColor.primary,
+                    unselectedLabelColor: Colors.black,
+                    unselectedLabelStyle: const TextStyle(
+                        fontWeight: FontWeight.w700),
+                    labelColor: XColor.primary,
+                    onTap: (index) async {
+                      logic.date.value = logic.tabTransaction[index]["value"];
+                      await logic.getTransaction();
+                    },
+                    labelStyle: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                    ),
+                    tabs: logic.tabTransaction.map((e) {
+                      return Tab(
+                        text: e['text'],
+
+                      );
+                    }).toList()
+                ),
               ),
             ),
             Expanded(

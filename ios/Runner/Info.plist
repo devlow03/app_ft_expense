@@ -8,7 +8,7 @@
         <true/>
     </dict>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>Replace with your permission description.</string>
+    <string>Ứng dụng này cần truy cập vào thư viện ảnh để chọn ảnh.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

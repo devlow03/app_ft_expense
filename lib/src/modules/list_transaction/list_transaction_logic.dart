@@ -74,8 +74,9 @@ class ListTransactionLogic extends GetxController {
               date: date.value
           )
       );
-      return getTransactionResponse.value;
+
     });
+    return getTransactionResponse.value;
   }
 
 

@@ -1,6 +1,7 @@
 import 'package:app_ft_expense/src/api/repositories/post/post_add_balance_body.dart';
 import 'package:app_ft_expense/src/api/services/service.dart';
 import 'package:app_ft_expense/src/core/config.dart';
+import 'package:app_ft_expense/src/modules/profile/profile_logic.dart';
 import 'package:app_ft_expense/src/widget/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,8 +13,10 @@ import '../index/index_view.dart';
 class AddBalanceLogic extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final Services services = Get.find();
+  final logicProfile = Get.put(ProfileLogic());
   TextEditingController balanceControl = TextEditingController();
   Rxn<String> balanceFormatted = Rxn();
+
   Future<void>addBalance()async{
     Utils.loading(()async{
       await services.postCreateBalance(body:
@@ -21,6 +24,7 @@ class AddBalanceLogic extends GetxController {
           balance: balanceControl.text
       )
       );
+      logicProfile.getUser();
       Fluttertoast.showToast(msg: "Thêm tài khoản thành công");
 
     });

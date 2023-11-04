@@ -50,7 +50,7 @@ class AddPage extends StatelessWidget {
                     logic.priceFormat.isNotEmpty==true ?"${  NumberFormat.currency(
                         locale: "vi").format(double.parse(logic.priceFormat.value ?? "")) }":"0 VND",
                     style: const TextStyle(
-                        fontSize: 64,
+                        fontSize: 50,
                         color: Colors.white
                     ),
                   )

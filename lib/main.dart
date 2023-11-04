@@ -43,12 +43,17 @@ class MyApp extends StatelessWidget {
           )
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedIconTheme: IconThemeData(
+            color: XColor.primary
+          ),
           backgroundColor: Colors.white,
           selectedLabelStyle: TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400
+            fontWeight: FontWeight.w400,
+            color: XColor.primary
           ),
           unselectedLabelStyle: TextStyle(
+              color: XColor.primary,
             fontSize: 12,
               fontWeight: FontWeight.w400
           ),

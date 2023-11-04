@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../widget/pick_image/pick_image_logic.dart';
 import '../profile/profile_logic.dart';
 import 'home_logic.dart';
 
@@ -22,6 +23,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final logic = Get.put(HomeLogic());
     final logicProfile = Get.put(ProfileLogic());
+
+    final logicPickImage = Get.put(PickImageLogic());
     return Scaffold(
       // backgroundColor: Colors.grey.shade200,
       backgroundColor: const Color(0xffF9F2EC),
@@ -40,13 +43,11 @@ class HomePage extends StatelessWidget {
           child: CircleAvatar(
             radius: 5,
             backgroundImage:
-            logicProfile.base64Image.value?.isNotEmpty ==
-                true
-                ? MemoryImage(
-                logicProfile.imageDecode.value!) as ImageProvider
+            logicPickImage.image.value != null
+                ? FileImage(logicPickImage.image.value!) as ImageProvider
                 :
             NetworkImage(
-                "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png"
+                logicProfile.getUserResponse.value?.data?.avatar!=null ?logicProfile.getUserResponse.value?.data?.avatar:logicProfile.networkImage.value
             ),
           )
         ),

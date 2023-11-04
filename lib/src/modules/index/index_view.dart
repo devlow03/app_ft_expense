@@ -19,7 +19,7 @@ class IndexPage extends StatelessWidget {
 
     List<Map<String, dynamic>> bottomNavigationBarItems = [
       {
-        'icon': const Icon(Icons.home),
+        'icon':  Icon(Icons.home_filled),
         'active': SvgPicture.asset("assets/home.svg"),
         'label': 'Trang chủ',
         'screen': HomePage(),
@@ -56,7 +56,7 @@ class IndexPage extends StatelessWidget {
         'screen':const AddPage()
       },
       {
-        'icon':Icon(Icons.bar_chart),
+        'icon':Icon(Icons.pie_chart),
         'active': SvgPicture.asset("assets/budget.svg"),
         'label': 'Biểu đồ',
         'screen': ChartPage(),
@@ -90,7 +90,9 @@ class IndexPage extends StatelessWidget {
         // ),
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar:
+
+        BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           iconSize: 30,
           selectedLabelStyle: TextStyle(

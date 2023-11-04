@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_ft_expense/src/api/services/media_services.dart';
 import 'package:app_ft_expense/src/api/services/service.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
@@ -21,6 +22,7 @@ class DependencyInjections implements GET.Bindings {
 
     final dio = await GET.Get.putAsync(() => _dio());
     GET.Get.put(Services(dio));
+    GET.Get.put(MediaServices(dio));
 
 
 
@@ -32,10 +34,10 @@ class DependencyInjections implements GET.Bindings {
         printOnSuccess: true
     ),
     );
-    dio.interceptors.add(PrettyDioLogger(
-      responseBody: true
-
-    ));
+    // dio.interceptors.add(PrettyDioLogger(
+    //   responseBody: true
+    //
+    // ));
 
 
 
@@ -64,13 +66,13 @@ class DependencyInjections implements GET.Bindings {
         },
           onError: ( error, handler) {
             // Xử lý lỗi
-            // if(error.response?.statusCode == HttpStatus.unauthorized){
-            //   GET.Get.offAll(const SignInPage());
-            //   handler.next(error);
-            // }
-            // else{
-            //   handler.next(error);
-            // }
+            if(error.response?.statusCode == HttpStatus.unauthorized){
+              GET.Get.offAll(const SignInPage());
+              handler.next(error);
+            }
+            else{
+              handler.next(error);
+            }
             handler.next(error);
           },
         onResponse: (response,handler)async{

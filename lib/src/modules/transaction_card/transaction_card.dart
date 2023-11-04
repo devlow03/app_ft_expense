@@ -30,22 +30,22 @@ class TransactionCard extends StatelessWidget {
             borderRadius:
             BorderRadius.circular(20)),
         padding: const EdgeInsets.symmetric(
-            vertical: 30, horizontal: 15),
+            vertical: 20, horizontal: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             RichText(text: TextSpan(
                 children: [
-                  WidgetSpan(
+                  const WidgetSpan(
                       alignment: PlaceholderAlignment
                           .middle,
                       child: Icon(
                         Icons.date_range, size: 20,)
                   ),
-                  WidgetSpan(child: SizedBox(width: 5,)),
+                  const WidgetSpan(child: SizedBox(width: 5,)),
                   TextSpan(
                       text: "${createdAtDate}",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 14,
                           color: Colors.black
                       )
@@ -54,19 +54,19 @@ class TransactionCard extends StatelessWidget {
             )),
             const SizedBox(height: 5,),
             ListTile(
-              contentPadding: EdgeInsets.symmetric(
+              contentPadding: const EdgeInsets.symmetric(
                   horizontal: 2),
               leading: Image.network(
                 "${GlobalData.baseUrl}/${thumbnailUrl}",
                 width: MediaQuery
                     .of(context)
                     .size
-                    .width * .15,
-                // fit: BoxFit.cover,
+                    .width * .1,
+                fit: BoxFit.cover,
               ),
 
               title: Text(categoryName ?? "",
-                style: TextStyle(
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16
                 ),
@@ -88,32 +88,36 @@ class TransactionCard extends StatelessWidget {
                         "- ${NumberFormat.currency(
                             locale: 'vi').format(
                             int.parse("${price}"))}",
-                        style: TextStyle(
+                        style: const TextStyle(
+                          fontSize: 15,
+                            fontWeight: FontWeight.bold,
                             color: Colors.red),
                       ),
                       child: Text("+ ${NumberFormat
                           .currency(locale: 'vi')
                           .format(int.parse(
                           "${price}"))}",
-                        style: TextStyle(
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                             color: Colors.green),
                       ),
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(height: 10,),
                     RichText(text: TextSpan(
                         children: [
-                          WidgetSpan(
-                              alignment: PlaceholderAlignment
-                                  .middle,
-                              child: Icon(
-                                Icons.access_time_filled,
-                                size: 20,
-                                color: XColor.primary,)
-                          ),
+                          // WidgetSpan(
+                          //     alignment: PlaceholderAlignment
+                          //         .middle,
+                          //     child: Icon(
+                          //       Icons.access_time_filled,
+                          //       size: 20,
+                          //       color: XColor.primary,)
+                          // ),
                           TextSpan(
                               text: "${
                                   createdAtTime}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 14,
                                   color: Colors.black
                               )
