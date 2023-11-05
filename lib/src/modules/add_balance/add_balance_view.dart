@@ -44,6 +44,9 @@ class AddBalancePage extends StatelessWidget {
                       if(value?.isEmpty==true){
                         return "Vui lòng nhập số dư tài khoản";
                       }
+                      if(double.parse(value??"") < 10000){
+                        return "Số dư phải từ 10 nghìn đồng";
+                      }
                       return null;
 
                     },

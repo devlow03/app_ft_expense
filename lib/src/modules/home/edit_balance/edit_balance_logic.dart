@@ -11,6 +11,8 @@ class EditBalanceLogic extends GetxController {
   final Services services = Get.find();
   TextEditingController balanceControl = TextEditingController();
   final logicHome = Get.put(HomeLogic());
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  Rxn<String>balanceFormatted = Rxn();
 
   Future<void>putUpdateAccountBalance()async{
     Utils.loading(()async{

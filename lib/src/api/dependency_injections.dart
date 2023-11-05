@@ -6,6 +6,7 @@ import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart'as GET;
 
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -64,9 +65,12 @@ class DependencyInjections implements GET.Bindings {
           }
 
         },
-          onError: ( error, handler) {
+          onError: ( error, handler) async{
             // Xử lý lỗi
             if(error.response?.statusCode == HttpStatus.unauthorized){
+              final SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove(GlobalData.token);
+              Fluttertoast.showToast(msg: "Tài khoản đã đăng nhập ở thiết bị khác",toastLength: Toast.LENGTH_SHORT,gravity: ToastGravity.CENTER);
               GET.Get.offAll(const SignInPage());
               handler.next(error);
             }

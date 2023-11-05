@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../../../core/xcolor.dart';
 import 'edit_balance_logic.dart';
 
 class EditBalancePage extends StatelessWidget {
@@ -10,58 +14,112 @@ class EditBalancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final logic = Get.put(EditBalanceLogic());
 
-    return AlertDialog(
-      title: Text('Cập nhật số dư tài khoản'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        title: IconButton(
+          onPressed: ()=>Get.back(),
+          icon:Icon(Icons.keyboard_arrow_down_rounded,color: Colors.black,)),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+      ),
+      body: ListView(
         children: [
+          Form(
+            key: logic.formKey,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    validator: (value){
+                      if(value?.isEmpty==true){
+                        return "Vui lòng nhập số dư tài khoản";
+                      }
+                      if(double.parse(value??"") < 10000){
+                        return "Số dư phải từ 10 nghìn đồng";
+                      }
+                      return null;
 
-          TextField(
-            controller: logic.balanceControl,
-            decoration: InputDecoration(
-              hintText: "Nhập số dư mới",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10)
-              ),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10)
-              ),
+                    },
+                    controller: logic.balanceControl,
+                    onSaved: (value) {},
+                    onChanged: (value) {
+                      logic.balanceFormatted.value = value;
+                    },
+                    decoration: InputDecoration(
+                      suffix: Container(
+                        color: Colors.white,
+                        width: MediaQuery.of(context).size.width*.3,
+                        child: Padding(
+                          padding: const EdgeInsets.all(3),
+                          child: Text(
+                            logic.balanceFormatted.value?.isNotEmpty == true
+                                ? NumberFormat.currency(locale: 'vi').format(double
+                                .parse(logic.balanceFormatted.value ?? ""))
+                                : '0 VND',
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.account_balance, color: XColor.primary,),
+                      filled: true,
+                      fillColor: Colors.grey.shade100,
+                      labelText: 'Số dư tài khoản',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                        const BorderSide(color: Colors.transparent),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                        const BorderSide(color: Colors.transparent),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width*.5,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)
+                      )
+                    ),
+                    child: Text('Cập nhật',
+                      style: TextStyle(
+                          color: Colors.white
+                      ),
+                    ),
+                    onPressed: () async{
+                      if(logic.formKey.currentState?.validate() == true){
+                        await logic.putUpdateAccountBalance();
+                        Get.back();
 
-
+                      }
+                    },
+                  ),
+                ),
+              ],
             ),
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-
-            },
-          ),
+          )
         ],
       ),
-      actions: [
-        TextButton(
-          child: Text('Hủy',
-          style: TextStyle(
-            color: Colors.red
-          ),
-          ),
-          onPressed: () {
-            Get.back();
-          },
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          children: [
+
+          ],
         ),
-        TextButton(
-          child: Text('Cập nhật',
-            style: TextStyle(
-              color: Colors.green
-            ),
-          ),
-          onPressed: () async{
-            await logic.putUpdateAccountBalance();
-            Get.back();
-          },
-        ),
-      ],
+      ),
     );
+
+
   }
 }

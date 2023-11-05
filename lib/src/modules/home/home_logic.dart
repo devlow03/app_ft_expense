@@ -7,6 +7,7 @@ import '../../api/repositories/get/get_balance_response.dart';
 import '../../api/repositories/get/get_sum_type_transaction_response.dart';
 import '../../api/repositories/get/get_transaction_response.dart';
 import '../../widget/utils.dart';
+import '../profile/profile_logic.dart';
 
 class HomeLogic extends GetxController {
   final Services services = Get.find();
@@ -18,6 +19,7 @@ class HomeLogic extends GetxController {
   Rxn<String>income = Rxn();
   Rxn<String>expense = Rxn();
   DateTime now = DateTime.now();
+  final logicProfile = Get.put(ProfileLogic());
 
   // Định dạng ngày theo kiểu "d/m/y"
   Rxn<String>date = Rxn();
@@ -27,6 +29,7 @@ class HomeLogic extends GetxController {
   Future<void> onReady() async{
     // TODO: implement onReady
     super.onReady();
+    await logicProfile.getUser();
     await getBalance();
     // date.value = DateFormat('d/M/y').format(now);
     await getSumTypeTransaction();
@@ -38,6 +41,7 @@ class HomeLogic extends GetxController {
   Future<void> refresh() async{
     // TODO: implement onReady
     super.refresh();
+    await logicProfile.getUser();
     await getBalance();
     // date.value = DateFormat('d/M/y').format(now);
     await getSumTypeTransaction();

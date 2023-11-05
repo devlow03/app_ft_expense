@@ -90,7 +90,9 @@ class HomePage extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {
-                            Get.dialog(const EditBalancePage());
+                            Get.bottomSheet(SizedBox(
+                                height: MediaQuery.of(context).size.height*.3,
+                                child: const EditBalancePage()));
                           },
                           icon: const Icon(Icons.edit_note, size: 30),
                         )
