@@ -53,8 +53,8 @@ class EditTransactionPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20,),
                   Text(
-                    logic.priceFormat.isNotEmpty==true ?"${  NumberFormat.currency(
-                        locale: "vi").format(double.parse(logic.priceFormat.value ?? "")) }":"0 VND",
+                    logic.priceFormat.isNotEmpty==true ?"${  NumberFormat.simpleCurrency(
+                        locale: "vi").format(double.parse(logic.priceFormat.value ?? "")) }":"0 đ",
                     style: const TextStyle(
                         fontSize: 50,
                         color: Colors.white

@@ -63,14 +63,14 @@ class TransactionDetailPage extends StatelessWidget {
                     trailing: Visibility(
                       visible: data?.type == "1",
                       replacement: Text(
-                        "- ${NumberFormat.currency(
+                        "- ${NumberFormat.simpleCurrency(
                             locale: 'vi').format(
                             int.parse("${data?.price}"))}",
                         style: const TextStyle(
                             color: Colors.red),
                       ),
                       child: Text("+ ${NumberFormat
-                          .currency(locale: 'vi')
+                          .simpleCurrency(locale: 'vi')
                           .format(int.parse(
                           "${data?.price}"))}",
                         style: const TextStyle(
