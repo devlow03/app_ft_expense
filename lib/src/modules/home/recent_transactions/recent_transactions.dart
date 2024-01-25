@@ -45,7 +45,7 @@ class RecentTransactionsPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Hôm nay",
+                    const Text("Hôm nay",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold
@@ -55,9 +55,9 @@ class RecentTransactionsPage extends StatelessWidget {
                       visible: logic.getTransactionTodayResponse.value?.data?.isNotEmpty==true,
                       child: TextButton(
                           onPressed: () {
-                            Get.to(ListTransactionPage());
+                            Get.to(const ListTransactionPage());
                           },
-                          child: Text("Xem thêm>",
+                          child: const Text("Xem thêm>",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold
                             ),
@@ -68,7 +68,7 @@ class RecentTransactionsPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 5,),
                 Visibility(
-                  replacement: Center(
+                  replacement: const Center(
                     child: Text("Bạn chưa có giao dịch nào"),
                   ),
                   visible: logic.getTransactionTodayResponse.value?.data
@@ -113,45 +113,42 @@ class RecentTransactionsPage extends StatelessWidget {
           ),
 
           const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Hôm qua",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    Visibility(
-                      visible: logic.getTransactionYesterdayResponse.value?.data?.isNotEmpty==true,
-                      child: TextButton(
-                          onPressed: () {
-                            Get.to(ListTransactionPage());
-                            // DefaultTabController.of(context).animateTo(2);
-                          },
-                          child: Text("Xem thêm>",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold
-                            ),
-                          )
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 5,),
-                Visibility(
-                  replacement: Center(
-                    child: Text("Bạn chưa có giao dịch nào"),
-                  ),
-                  visible: logic.getTransactionYesterdayResponse.value?.data
+          Visibility(
+            visible: logic.getTransactionYesterdayResponse.value?.data
                       ?.isNotEmpty == true,
-                  child: ListView.separated(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+          
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Hôm qua",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      Visibility(
+                        visible: logic.getTransactionYesterdayResponse.value?.data?.isNotEmpty==true,
+                        child: TextButton(
+                            onPressed: () {
+                              Get.to(const ListTransactionPage());
+                              // DefaultTabController.of(context).animateTo(2);
+                            },
+                            child: const Text("Xem thêm>",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold
+                              ),
+                            )
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 5,),
+                  ListView.separated(
                     itemCount: (logic.getTransactionYesterdayResponse.value
                         ?.data?.length ?? 0) > 5 ? 5 : (logic
                         .getTransactionYesterdayResponse.value?.data
@@ -162,7 +159,7 @@ class RecentTransactionsPage extends StatelessWidget {
                       final data = logic.getTransactionYesterdayResponse.value
                           ?.data?[index];
                       int? price = int.parse("${data?.price}");
-
+          
                       return GestureDetector(
                         onTap: (){
                           Get.to(TransactionDetailPage(data: data,));
@@ -185,8 +182,8 @@ class RecentTransactionsPage extends StatelessWidget {
                       );
                     },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 30,)

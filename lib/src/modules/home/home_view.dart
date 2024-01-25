@@ -4,6 +4,7 @@ import 'package:app_ft_expense/src/core/config.dart';
 import 'package:app_ft_expense/src/core/xcolor.dart';
 import 'package:app_ft_expense/src/modules/home/edit_balance/edit_balance_view.dart';
 import 'package:app_ft_expense/src/modules/home/recent_transactions/recent_transactions.dart';
+import 'package:app_ft_expense/src/modules/profile/profile_view.dart';
 import 'package:app_ft_expense/src/widget/global_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -27,10 +28,12 @@ class HomePage extends StatelessWidget {
     final logicPickImage = Get.put(PickImageLogic());
     return Scaffold(
       // backgroundColor: Colors.grey.shade200,
-      backgroundColor: const Color(0xffF9F2EC),
+      // backgroundColor: const Color(0xffF9F2EC),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: const Color(0xffF9F2EC),
+        // backgroundColor: const Color(0xffF9F2EC),
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           DateFormat.yMMMMEEEEd('vi').format(DateTime.now()),
@@ -38,26 +41,29 @@ class HomePage extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.w500),
         ),
-        leading:  Padding(
-          padding: EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            radius: 5,
-            backgroundImage:
-            logicPickImage.image.value != null
-                ? FileImage(logicPickImage.image.value!) as ImageProvider
-                :
-            NetworkImage(
-                logicProfile.getUserResponse.value?.data?.avatar!=null ?logicProfile.getUserResponse.value?.data?.avatar:logicProfile.networkImage.value
-            ),
-          )
-        ),
-        actions: [
-          IconButton(
+        leading:  IconButton(
               onPressed: (){
-                Fluttertoast.showToast(msg: "Tính năng này hiện chưa sử dụng được",toastLength: Toast.LENGTH_SHORT,gravity: ToastGravity.CENTER);
+                Fluttertoast.showToast(msg: "Tính năng này hiện chưa được phát triển",toastLength: Toast.LENGTH_SHORT,gravity: ToastGravity.CENTER);
               },
-              icon: Icon(Icons.notifications)
-          )
+              icon: const Icon(Icons.notifications_outlined,size: 28,color: Colors.black,)
+          ),
+        actions: [
+          
+          InkWell(
+            onTap: ()=>Get.to(ProfilePage(),transition: Transition.rightToLeft),
+            child: CircleAvatar(
+              radius: 22,
+              backgroundImage:
+              logicPickImage.image.value != null
+                  ? FileImage(logicPickImage.image.value!) as ImageProvider
+                  :
+              NetworkImage(
+                  logicProfile.getUserResponse.value?.data?.avatar ?? logicProfile.networkImage.value
+              ),
+            ),
+          ),
+          const SizedBox(width: 10,)
+          
         ],
       ),
       body:
@@ -91,7 +97,7 @@ class HomePage extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             Get.bottomSheet(SizedBox(
-                                height: MediaQuery.of(context).size.height*.3,
+                                height: MediaQuery.of(context).size.height*.2,
                                 child: const EditBalancePage()));
                           },
                           icon: const Icon(Icons.edit_note, size: 30),
@@ -99,7 +105,7 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      NumberFormat.currency(locale: 'vi').format(
+                      NumberFormat.simpleCurrency(locale: 'vi').format(
                         int.parse("${logic.getBalanceResponse.value?.data?.balance}"),
                       ),
                       style: const TextStyle(
@@ -166,7 +172,7 @@ class HomePage extends StatelessWidget {
                                       ),
                                       Text(
                                         logic.getSumTypeTransactionResponse.value != null
-                                            ? NumberFormat.currency(locale: 'vi').format(
+                                            ? NumberFormat.simpleCurrency(locale: 'vi').format(
                                           int.parse(
                                             "${logic.getSumTypeTransactionResponse.value?.data?.income}" ??
                                                 '0',
@@ -231,7 +237,7 @@ class HomePage extends StatelessWidget {
                                       ),
                                       Text(
                                         logic.getSumTypeTransactionResponse.value != null
-                                            ? NumberFormat.currency(locale: 'vi').format(
+                                            ? NumberFormat.simpleCurrency(locale: 'vi').format(
                                           int.parse(
                                             "${logic.getSumTypeTransactionResponse.value?.data?.expense}" ??
                                                 '0',

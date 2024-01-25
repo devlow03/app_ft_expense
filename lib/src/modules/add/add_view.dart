@@ -47,8 +47,8 @@ class AddPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20,),
                   Text(
-                    logic.priceFormat.isNotEmpty==true ?"${  NumberFormat.currency(
-                        locale: "vi").format(double.parse(logic.priceFormat.value ?? "")) }":"0 VND",
+                    logic.priceFormat.isNotEmpty==true ?"${  NumberFormat.simpleCurrency(
+                        locale: "vi").format(double.parse(logic.priceFormat.value ?? "")) }":"0 đ",
                     style: const TextStyle(
                         fontSize: 50,
                         color: Colors.white
@@ -150,7 +150,7 @@ class AddPage extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
-                      // inputFormatters: [CurrencyTextInputFormatter(
+                      // inputFormatters: [simpleCurrencyTextInputFormatter(
                       validator: (value) {
                         if (value?.isEmpty==true) {
                           return 'Vui lòng nhập giá tiền';

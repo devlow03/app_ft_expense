@@ -27,11 +27,11 @@ class ListTransactionPage extends StatelessWidget {
                 logic.onSearch.value = false;
                 logic.desControl.clear();
               },
-              icon: Icon(Icons.arrow_back)
+              icon: const Icon(Icons.arrow_back)
           ) : null,
           elevation: 0.0,
           backgroundColor: Colors.white,
-          title: Text("Danh sách giao dịch",
+          title: const Text("Danh sách giao dịch",
             style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold
@@ -39,12 +39,8 @@ class ListTransactionPage extends StatelessWidget {
           ),
           actions: [
             GestureDetector(
-                onTap: () =>
-                    Fluttertoast.showToast(
-                        msg: "Tính năng này hiện chưa sử dụng được",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER),
-                child: Icon(Icons.date_range)),
+                onTap: () =>logic.selectDate(context),
+                child: const Icon(Icons.date_range)),
             GestureDetector(
               onTap: () =>
                   Fluttertoast.showToast(
@@ -60,13 +56,13 @@ class ListTransactionPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: Colors.grey.shade200)
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.filter_list, size: 30, color: Colors.black,)),
               ),
             )
           ],
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(70),
+            preferredSize: const Size.fromHeight(70),
             child: Column(
               children: [
                 Padding(
@@ -85,34 +81,34 @@ class ListTransactionPage extends StatelessWidget {
                     },
                     decoration: InputDecoration(
                       hintText: 'Tìm kiếm giao dịch',
-                      hintStyle: TextStyle(
-                        color: Colors.pink,
+                      hintStyle: const TextStyle(
+                        color: Colors.grey,
                         // fontWeight: FontWeight.bold
 
                       ),
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 20),
                       suffixIcon: Icon(
                         Icons.search, color: XColor.primary, size: 30,),
                       filled: true,
-                      fillColor: XColor.primary.shade100,
+                      fillColor: Colors.grey.shade200,
                       border: OutlineInputBorder(
 
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             color: Colors.transparent
                         ),
 
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             color: Colors.transparent
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             color: Colors.transparent
                         ),
                       ),

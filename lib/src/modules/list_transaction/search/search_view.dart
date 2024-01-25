@@ -26,7 +26,7 @@ class SearchPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 15,),
                 Visibility(
-                  replacement: Center(
+                  replacement: const Center(
                     child: Text("Không tồn tại giao dịch này"),
 
                   ),

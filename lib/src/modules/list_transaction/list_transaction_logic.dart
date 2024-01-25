@@ -5,6 +5,7 @@ import '../../api/repositories/get/get_transaction_query.dart';
 import '../../api/repositories/get/get_transaction_response.dart';
 import '../../api/services/service.dart';
 import '../../widget/utils.dart';
+import 'package:intl/intl.dart';
 
 class ListTransactionLogic extends GetxController {
   final Services services = Get.find();
@@ -77,6 +78,26 @@ class ListTransactionLogic extends GetxController {
 
     });
     return getTransactionResponse.value;
+  }
+
+  final Rxn<DateTime?> selectedDate = Rxn<DateTime?>();
+  Future<void>selectDate(BuildContext context)async{
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      keyboardType: TextInputType.text
+    );
+    if (pickedDate != null && pickedDate != selectedDate.value) {
+      selectedDate.value = pickedDate;
+      final formatter = DateFormat('d/M/y');
+      final formattedDate = formatter.format(selectedDate.value!);
+      // birthdayController.text = formattedDate;
+    }
+
+
+
   }
 
 

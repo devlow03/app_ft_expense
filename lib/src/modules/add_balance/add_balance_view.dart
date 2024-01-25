@@ -63,9 +63,9 @@ class AddBalancePage extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                               logic.balanceFormatted.value?.isNotEmpty == true
-                                  ? NumberFormat.currency(locale: 'vi').format(double
+                                  ? NumberFormat.simpleCurrency(locale: 'vi').format(double
                                   .parse(logic.balanceFormatted.value ?? ""))
-                                  : '0 VND',
+                                  : '0đ',
                             textAlign: TextAlign.end,
                           ),
                         ),

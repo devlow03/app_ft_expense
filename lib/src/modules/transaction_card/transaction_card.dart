@@ -85,7 +85,7 @@ class TransactionCard extends StatelessWidget {
                     Visibility(
                       visible: type == "1",
                       replacement: Text(
-                        "- ${NumberFormat.currency(
+                        "- ${NumberFormat.simpleCurrency(
                             locale: 'vi').format(
                             int.parse("${price}"))}",
                         style: const TextStyle(
@@ -94,7 +94,7 @@ class TransactionCard extends StatelessWidget {
                             color: Colors.red),
                       ),
                       child: Text("+ ${NumberFormat
-                          .currency(locale: 'vi')
+                          .simpleCurrency(locale: 'vi')
                           .format(int.parse(
                           "${price}"))}",
                         style: const TextStyle(

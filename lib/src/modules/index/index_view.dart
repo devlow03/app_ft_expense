@@ -19,16 +19,16 @@ class IndexPage extends StatelessWidget {
 
     List<Map<String, dynamic>> bottomNavigationBarItems = [
       {
-        'icon':  Icon(Icons.home_filled),
+        'icon':  const Icon(Icons.home_filled),
         'active': SvgPicture.asset("assets/home.svg"),
         'label': 'Trang chủ',
-        'screen': HomePage(),
+        'screen': const HomePage(),
       },
       {
-        'icon':  Icon(Icons.receipt_long),
+        'icon':  const Icon(Icons.receipt),
         'active': SvgPicture.asset("assets/transaction.svg"),
         'label': 'Giao dịch',
-        'screen': ListTransactionPage(),
+        'screen': const ListTransactionPage(),
       },
       {
         'icon':Container(
@@ -36,8 +36,8 @@ class IndexPage extends StatelessWidget {
               shape: BoxShape.circle,
             color: XColor.primary
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Icon(Icons.add,color: Colors.white,),
           ),
         ),
@@ -46,8 +46,8 @@ class IndexPage extends StatelessWidget {
             shape: BoxShape.circle,
               color: XColor.primary
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Icon(Icons.add,color: Colors.white,),
           ),
         ),
@@ -56,16 +56,16 @@ class IndexPage extends StatelessWidget {
         'screen':const AddPage()
       },
       {
-        'icon':Icon(Icons.pie_chart),
+        'icon':const Icon(Icons.pie_chart),
         'active': SvgPicture.asset("assets/budget.svg"),
         'label': 'Biểu đồ',
         'screen': ChartPage(),
       },
       {
-        'icon':Icon(Icons.person),
+        'icon':const Icon(Icons.person),
         'active': SvgPicture.asset("assets/user.svg"),
         'label': 'Cá nhân',
-        'screen': ProfilePage(),
+        'screen': const ProfilePage(),
       },
 
 

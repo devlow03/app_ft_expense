@@ -7,6 +7,8 @@
         <key>NSAllowsArbitraryLoads</key>
         <true/>
     </dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Ứng dụng muốn truy cập máy ảnh để chụp ảnh</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>Ứng dụng này cần truy cập vào thư viện ảnh để chọn ảnh.</string>
 	<key>CFBundleDevelopmentRegion</key>
